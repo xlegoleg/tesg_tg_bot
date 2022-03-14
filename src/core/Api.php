@@ -43,7 +43,7 @@ class Api {
             $sendCommand = $analyzer->analyze();
         } catch (Error $e) {
             $sendCommand = [];
-            file_put_contents('bot_errors.txt', '$data: '.print_r($e, 1)."\n", FILE_APPEND);
+            file_put_contents('logs/bot_errors.txt', '$data: '.print_r($e, 1)."\n", FILE_APPEND);
         }
         $this->request->handleMessage('sendMessage', $sendCommand);
     }
@@ -60,7 +60,7 @@ class Api {
     private function initInputAnalyzerData(): Analyzer {
         $data = json_decode(file_get_contents('php://input'), TRUE);
         $data = $data['message'] ?: $data['callback_query'];
-        file_put_contents('log.txt', '$data: '.print_r($data, 1)."\n", FILE_APPEND);
+        file_put_contents('logs/messages.txt', '$data: '.print_r($data, 1)."\n", FILE_APPEND);
         return new Analyzer($data);
     }
 }

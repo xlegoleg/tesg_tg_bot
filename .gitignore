@@ -1,2 +1,4 @@
 config/bot.php
 config/db.php
+logs
+src/inputs/custom
