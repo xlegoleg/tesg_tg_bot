@@ -1,7 +1,7 @@
 <?php
 
 
-namespace commands;
+namespace commands\base;
 
 // TODO переписать команды по сущностям, и потом новые сущности списка комманд
 
@@ -11,8 +11,12 @@ class Text extends Command {
         'text' => 'default'
     ];
 
-    public function __construct($chat_config, $command_config)
+    public function __construct($text)
     {
-        parent::__construct($chat_config, $command_config);
+        parent::__construct($text);
+    }
+
+    protected function prepareConfigToTemplate(...$configuration) {
+        $this->template['text'] = $configuration[0];
     }
 }
