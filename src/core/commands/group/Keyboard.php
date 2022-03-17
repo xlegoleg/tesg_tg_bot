@@ -1,5 +1,8 @@
 <?php
-
+/**
+ * @author Oleg Kurganov [xxxlegoleg@gmail.com]
+ * @since PHP 7.4
+ */
 
 namespace core\commands\group;
 

@@ -1,4 +1,9 @@
 <?php
+/**
+ * @author Oleg Kurganov [xxxlegoleg@gmail.com]
+ * @since PHP 7.4
+ */
+
 use core\commands\base\Text;
 
 /**
