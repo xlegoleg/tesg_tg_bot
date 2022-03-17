@@ -1,11 +1,13 @@
 <?php
+/**
+ * @author Oleg Kurganov [xxxlegoleg@gmail.com]
+ * @since PHP 7.4
+ */
+
+namespace core\commands\group;
 
 
-namespace commands\group;
-
-
-use commands\base\CallbackButton;
-use commands\base\Command;
+use core\commands\base\Command;
 
 class Keyboard extends Command {
 
@@ -32,8 +34,5 @@ class Keyboard extends Command {
         $this->template['reply_markup']['inline_keyboard'] = $keyboard;
         $reply = json_encode($this->template['reply_markup']);
         $this->template['reply_markup'] = $reply;
-        echo "TEMPLATE FINAL: ...\n";
-        var_dump($this->template);
-        echo "TEMPLATE_END FINAL: ...\n";
     }
 }

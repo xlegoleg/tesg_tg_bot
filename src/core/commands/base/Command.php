@@ -1,7 +1,10 @@
 <?php
+/**
+ * @author Oleg Kurganov [xxxlegoleg@gmail.com]
+ * @since PHP 7.4
+ */
 
-
-namespace commands\base;
+namespace core\commands\base;
 
 
 use interfaces\ICommand;

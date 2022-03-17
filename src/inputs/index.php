@@ -1,4 +1,9 @@
 <?php
+/**
+ * @author Oleg Kurganov [xxxlegoleg@gmail.com]
+ * @since PHP 7.4
+ */
+
 $root = $_SERVER['DOCUMENT_ROOT'];
 
 $system_inputs = glob($root . '/src/inputs/system' . '/*.php');

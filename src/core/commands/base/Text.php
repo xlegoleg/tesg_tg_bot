@@ -1,7 +1,10 @@
 <?php
+/**
+ * @author Oleg Kurganov [xxxlegoleg@gmail.com]
+ * @since PHP 7.4
+ */
 
-
-namespace commands\base;
+namespace core\commands\base;
 
 // TODO переписать команды по сущностям, и потом новые сущности списка комманд
 
