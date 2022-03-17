@@ -5,4 +5,4 @@ use core\Analyzer;
 
 $analyzer = new Analyzer([]);
 
-var_dump($analyzer->INPUTS);
+var_dump($analyzer->analyze('жопа'));

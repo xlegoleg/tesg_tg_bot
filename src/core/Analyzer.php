@@ -3,11 +3,7 @@
 
 namespace core;
 
-
-use commands\base\CallbackButton;
-use commands\base\LinkButton;
-use commands\base\Text;
-use commands\group\Keyboard;
+use core\commands\base\Text;
 
 class Analyzer {
     private $data;
@@ -17,6 +13,9 @@ class Analyzer {
     public $INPUTS;
 
     public function __construct($data) {
+        /**
+         * All inputs from /inputs folder were here
+         */
         $this->INPUTS = require_once($_SERVER['DOCUMENT_ROOT'] . '/src/inputs/index.php');
         $this->data = $data;
         $this->chat_config = Array(
@@ -24,26 +23,26 @@ class Analyzer {
         );
     }
 
-    public function analyze(): array {
+    public function analyze(): void {
         $data = $this->data;
         $message = mb_strtolower(($data['text'] ?: $data['data']),'utf-8');
-        $command = $this->getDataFromCommands($message);
-        return $this->presetChatCommand($command);
+        $this->analyzeInput($message);
     }
 
-    private function getDataFromCommands($message): array {
+    private function analyzeInput($message): void {
+        $api = $GLOBALS['apiClient'];
+
         $default = new Text('Слушай, такой комманды нету, соре');
 
         if (array_key_exists($message, $this->INPUTS)) {
-            $command = $this->INPUTS[$message];
-            return $command->getRequestData();
-        }
-        return $default->getRequestData();
-    }
+            $handler = $this->INPUTS[$message];
 
-    private function presetChatCommand($command): array {
-        $preset = $command;
-        $preset['chat_id'] = $this->chat_config['chat_id'];
-        return $preset;
+            if (is_callable($handler)) {
+                $handler();
+            }
+        } else {
+            $api->sendCommand($default->getRequestData());
+        }
+
     }
 }

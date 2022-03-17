@@ -1,7 +1,7 @@
 <?php
 
 
-namespace commands\base;
+namespace core\commands\base;
 
 
 class CallbackButton extends Command {

@@ -12,6 +12,8 @@ class Api {
 
     private $hook_url;
 
+    private $chat_id;
+
     private $request;
 
     private $db_client;
@@ -38,14 +40,18 @@ class Api {
     }
 
     public function start(): void {
-        $analyzer = $this->initInputAnalyzerData();
+        $analyzer = $this->initInputThread();
+
         try {
-            $sendCommand = $analyzer->analyze();
+            $analyzer->analyze();
         } catch (Error $e) {
-            $sendCommand = [];
             file_put_contents('logs/bot_errors.txt', '$data: '.print_r($e, 1)."\n", FILE_APPEND);
         }
-        $this->request->handleMessage('sendMessage', $sendCommand);
+    }
+
+    public function sendCommand($command): void {
+        $finalCommand = $this->presetChatCommand($command);
+        $this->request->handleMessage('sendMessage', $finalCommand);
     }
 
     public function getApiInfo(): array {
@@ -57,10 +63,26 @@ class Api {
         );
     }
 
-    private function initInputAnalyzerData(): Analyzer {
+    private function initInputThread(): Analyzer {
+        /**
+         * Initialize input thread
+         */
         $data = json_decode(file_get_contents('php://input'), TRUE);
         $data = $data['message'] ?: $data['callback_query'];
+        $this->chat_id = $data['chat']['id'];
+
+        /**
+         * Save instance to globals
+         */
+        $GLOBALS['apiClient'] = $this;
+
         file_put_contents('logs/messages.txt', '$data: '.print_r($data, 1)."\n", FILE_APPEND);
         return new Analyzer($data);
+    }
+
+    private function presetChatCommand($command): array {
+        $preset = $command;
+        $preset['chat_id'] = $this->chat_id;
+        return $preset;
     }
 }
