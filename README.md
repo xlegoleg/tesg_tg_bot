@@ -1,8 +1,9 @@
-#A simple telegram-bot php engine
+# A simple telegram-bot php engine
 
 __using php 7.4__
 
-###To add custom handlers:
+### To add custom handlers:
+
 _1) Look inside /inputs folder for example_
 
 _2) Create .php files in the root of /custom folder_
